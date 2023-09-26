@@ -1,48 +1,39 @@
-import React, { useState, useCallback } from 'react'
+import React, { useEffect, useCallback } from 'react'
 import axios from 'axios'
 import Image from 'next/image'
-import Dropzone from 'react-dropzone'
 import { useDropzone } from 'react-dropzone'
+import { toast } from 'react-hot-toast'
 
-const ImageDropzone = ({ setImage, image }) => {
-  const onDrop = useCallback(
-    (acceptedFiles: File[]) => {
-      // Do something with the files
+const ImageDropzone = () => {
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+    accept: {
+      'image/png': ['.png'],
+      'text/html': ['.html', '.htm'],
+    },
+    onDrop: async (acceptedFiles) => {
+      // Directly defining the onDrop function
+      const data = new FormData()
+      data.append('file', acceptedFiles[0])
+      const test = await axios.post('/api/imageUpload', data)
+      console.log(test.data)
       if (acceptedFiles.length > 0) {
-        const file = acceptedFiles[0] // or whatever logic you use to select a file
-        setImage(file)
+        const file = acceptedFiles[0]
+        const formData = new FormData()
+        formData.set('file', file)
+        console.log(file)
+
+        const response = await axios
+          .post('/api/imageUpload', formData)
+          .then((response) => {
+            toast.success('Image uploaded successfully.')
+            console.log('Upload response:', response.data)
+          })
+          .catch((error) => {
+            console.log('Error: ' + error.message)
+          })
       }
     },
-    [image]
-  )
-
-  const { getRootProps, getInputProps, isDragActive, acceptedFiles } =
-    useDropzone({
-      accept: {
-        'image/png': ['.png'],
-        'text/html': ['.html', '.htm'],
-      },
-      onDrop: async (acceptedFiles) => {
-        setImage(acceptedFiles[0]) // replace this with handler function, use image to deliver the file to the server in parent component post action
-        handleImageDrop(acceptedFiles[0])
-      },
-    })
-
-  const handleImageDrop = async (file) => {
-    const formData = new FormData()
-    formData.append('image', file)
-
-    try {
-      const response = await axios.post('/api/profile', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      })
-      console.log(response)
-    } catch (error) {
-      console.log(error)
-    }
-  }
+  })
 
   return (
     <div

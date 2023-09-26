@@ -11,27 +11,19 @@ const Profile = () => {
     firstname: '',
     lastname: '',
     email: '',
-    image: image,
   })
-
-  useEffect(() => {
-    console.log('profile:', profile)
-  }, [profile])
-
-  useEffect(() => {
-    console.log('errors:', errors)
-  }, [errors])
 
   const nameError = errors.find((item) => item.errorType === 'NAME')
   const emailError = errors.find((item) => item.errorType === 'EMAIL')
 
   const handleUpdateProfile = async (e: React.FormEvent) => {
     e.preventDefault()
+
+    // form object to encode profile data with image data
+
     console.log('Sending profile to server:', profile)
     axios
-      .post('/api/profile', {
-        profile: profile,
-      })
+      .post('/api/profile', profile)
       .then(() => {
         toast.success('Profile saved.')
         console.log('profile sent to server')
@@ -57,7 +49,7 @@ const Profile = () => {
       </p>
       <article className='flex flex-col justify-center align-middle text-primary.gray text-sm z-50 bg-background rounded-md h-auto w-full my-4 p-4'>
         <h2 className='ml-2'>Profile Picture</h2>
-        <ImageDropzone setImage={setImage} image={image} />
+        <ImageDropzone />
         <p className='text-xs text-gray-500 ml-2'>
           Image must be below 1024x1024px. Use PNG or JPG format.
         </p>
