@@ -48,6 +48,11 @@ const ProfilePreview = ({
     return <PreviewSkeleton isOverlay={isOverlay} />
   }
 
+  console.log(
+    'name length:',
+    profile?.firstname?.length + profile?.lastname?.length
+  )
+
   return (
     <div
       className={`${
@@ -70,7 +75,7 @@ const ProfilePreview = ({
             className='rounded-full absolute top-0 left-0 z-10 overflow-hidden'
           />
         )}
-        {!imageSrc && (
+        {(!imageSrc || isLoading) && (
           <div className='rounded-full absolute top-0 left-0 z-10 bg-secondary.gray w-full h-full' />
         )}
       </div>
@@ -78,10 +83,10 @@ const ProfilePreview = ({
       <h1
         className={`${
           isOverlay &&
-          profile?.firstname?.length + profile?.lastname?.length > 14
+          profile?.firstname?.length + profile?.lastname?.length >= 14
             ? 'text-2xl'
             : 'text-4xl'
-        } desktop:text-4xl phone:text-2xl mt-4 text-black`}
+        } mt-4 text-black`}
       >
         <span className='text-primary.blue font-semibold'>{'{'}</span>
         {(profile?.firstname || 'Your') + ' ' + (profile?.lastname || 'Name') ||

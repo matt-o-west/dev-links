@@ -110,7 +110,7 @@ const AlertCard = ({ children, type }: AlertCardProps) => {
     <Card className={`alert-${type} mb-4 px-2 py-0.5 overflow-hidden`}>
       <Flex align='center' className='mb-1'>
         <Text className='mr-2'>{icon}</Text>
-        <Text className='mr-2 font-semibold'>{title}</Text>
+        <Text className='mr-2 font-semibold'> {title}</Text>
       </Flex>
       <Text>{children}</Text>
     </Card>

@@ -1,13 +1,10 @@
 'use client'
 import React, { useEffect, useState, useCallback } from 'react'
-import Button from '@/components/Button'
 import Link from 'next/link'
-import Image from 'next/image'
 import ShareModal from '@/components/ShareLinkModal'
 import axios from 'axios'
 import ProfilePreview from '@/components/ProfilePreview'
 import toast from 'react-hot-toast'
-import { signOut } from 'next-auth/react'
 import useMobileDetect from '@/hooks/useMobileDetect'
 import useSWR from 'swr'
 interface User {
