@@ -1,6 +1,6 @@
 ## Dev Links
 
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app). The project is a link aggregator for developers! It utilizes Node, Typescript and Postgres on the backend, Tailwind and Radix Primitives on the frontend, AWS for file storage.
+This project is a platform to create custom software engineer profiles! It houses development-focused links, social media, contact info and a profile picture in a dynamically rendered URL. It utilizes Node, Typescript and Postgres on the backend, Tailwind and Radix Primitives on the frontend, and AWS for file storage.
 
 ## Running this Repo Locally
 
